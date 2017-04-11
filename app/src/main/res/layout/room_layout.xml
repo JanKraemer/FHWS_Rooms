@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/room_cardview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/card_height"
-
-        android:paddingTop="@dimen/padding_top_bottom"
-        android:paddingBottom="@dimen/padding_top_bottom">
+        android:paddingTop="@dimen/padding_above_item"
+        android:paddingBottom="@dimen/padding_above_item"
+        android:layout_marginBottom="8dp">
 
         <RelativeLayout
+            android:id="@+id/card_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -18,9 +20,9 @@
             android:id="@+id/room_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/ic_room"
             android:layout_marginLeft="@dimen/image_padding"
-            android:layout_marginTop="@dimen/padding_top_bottom"
+            android:layout_marginTop="@dimen/image_padding"
+            android:layout_alignBottom="@dimen/image_padding"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
@@ -31,8 +33,20 @@
              android:text="H.1.1"
              android:textSize="@dimen/title_size"
              android:paddingLeft="@dimen/text_padding_left"
-             android:paddingTop="@dimen/text_padding_top_bottom"
-             android:paddingBottom="@dimen/text_padding_top_bottom"/>
+             android:paddingTop="@dimen/text_padding_top" />
+
+         <TextView
+             android:id="@+id/room_subtitle"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Hallo"
+             android:layout_below="@id/room_title"
+             android:layout_toRightOf="@+id/room_image"
+             android:layout_toLeftOf="@+id/room_information"
+             android:gravity="start"
+             android:textSize="@dimen/subtitle_size"
+             android:paddingLeft="@dimen/image_padding"
+             android:paddingBottom="@dimen/text_padding_bottom"/>
 
         <TextView
             android:id="@+id/room_information"
@@ -40,8 +54,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/title_size"
             android:paddingRight="@dimen/image_padding"
-            android:paddingTop="@dimen/text_padding_top_bottom"
-            android:paddingBottom="@dimen/text_padding_top_bottom"
+            android:paddingTop="@dimen/text_padding_top"
+            android:paddingBottom="@dimen/text_padding_bottom"
             android:text="- belegt -"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true" />
