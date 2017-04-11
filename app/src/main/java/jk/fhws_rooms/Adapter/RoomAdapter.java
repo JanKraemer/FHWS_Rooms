@@ -1,9 +1,6 @@
 package jk.fhws_rooms.Adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,12 +10,9 @@ import android.view.ViewGroup;
 import java.util.LinkedList;
 import java.util.List;
 
-import jk.fhws_rooms.Model.Lectures;
 import jk.fhws_rooms.Model.Room;
 import jk.fhws_rooms.R;
 
-import static jk.fhws_rooms.R.color.colorAccent;
-import static jk.fhws_rooms.R.color.colorPrimaryDark;
 import static jk.fhws_rooms.R.mipmap.ic_closed;
 import static jk.fhws_rooms.R.mipmap.ic_room;
 

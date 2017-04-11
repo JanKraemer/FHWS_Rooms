@@ -26,9 +26,9 @@ public class RoomsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_rooms);
 
-        initToolbar();
+        initToolbar( );
 
-        initRecyclerView();
+        initRecyclerView( );
 
         RoomManager
                 .getRoomManager( )
@@ -37,8 +37,7 @@ public class RoomsActivity extends AppCompatActivity {
     }
 
 
-    private void initToolbar()
-    {
+    private void initToolbar( ) {
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar);
 
         toolBar.setTitle("Räume SHL");
@@ -48,7 +47,7 @@ public class RoomsActivity extends AppCompatActivity {
         setSupportActionBar(toolBar);
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView( ){
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_rooms);
 
         layoutManager = new LinearLayoutManager(this);
@@ -65,6 +64,4 @@ public class RoomsActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
     }
-
-
 }

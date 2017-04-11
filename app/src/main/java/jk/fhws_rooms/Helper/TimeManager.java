@@ -1,12 +1,6 @@
 package jk.fhws_rooms.Helper;
 
-import android.provider.ContactsContract;
-import android.text.format.Time;
-import android.util.Log;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 
@@ -26,7 +20,7 @@ public class TimeManager {
 
         Calendar cal = new GregorianCalendar();
 
-        cal.add(Calendar.DAY_OF_MONTH,2);
+        cal.add(Calendar.DAY_OF_MONTH,1);
 
         cal.set(Calendar.HOUR_OF_DAY, 0);
 
