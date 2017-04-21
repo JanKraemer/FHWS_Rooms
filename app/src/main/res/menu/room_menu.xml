@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="xyz.kraus.doodle.Activity.MainActivity">
+
+      <item
+        android:id="@+id/action_name"
+        android:icon="@drawable/ic_settings"
+        android:title="Einstellungen"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+</menu>

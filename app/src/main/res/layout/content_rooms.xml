@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recyclerview_rooms"
     android:layout_width="match_parent"
+    android:background="#FFFFFFFF"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/padding_above_item"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"

@@ -6,4 +6,5 @@ package jk.fhws_rooms.Adapter;
 
 public interface IOnItemClickListener {
     void OnClick(int position);
+
 }
