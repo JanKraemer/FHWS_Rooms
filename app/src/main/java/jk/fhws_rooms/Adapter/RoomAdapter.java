@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import jk.fhws_rooms.Activitiy.RoomsActivity;
+import jk.fhws_rooms.Helper.TimeManager;
 import jk.fhws_rooms.Model.DataManager;
+import jk.fhws_rooms.Model.Lecture;
 import jk.fhws_rooms.Model.Room;
 import jk.fhws_rooms.Network.RoomManager;
 import jk.fhws_rooms.Network.SupportApiAdapter;
@@ -52,7 +54,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
     public void updateRoom(int index)
     {
-        notifyItemChanged(index);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -65,7 +67,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
     @Override
     public void onBindViewHolder(final RoomViewholder holder,final int position) {
-        if ( rooms.getAllRooms().size() != 0 ) {
+        if ( rooms.getAllRooms( ).size( ) != 0 ) {
 
             holder.roomTitle.setText(rooms.getRoom(position).getLabel());
 
@@ -76,35 +78,37 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
     }
 
     @Override
-    public int getItemCount() {
-        return rooms.getAllRooms().size();
+    public int getItemCount( ) {
+        return rooms.getAllRooms( ).size( );
     }
 
     private void setLectureTitleAndInformation(RoomViewholder holder, int position){
 
-        if(rooms.getRoom(position).getLectures() != null && rooms.getRoom(position).getLectures().size() > 0)
-
+        if( rooms.getRoom( position ).hasCurrentLecture( ) )
+        {
             roomTaken(holder, position);
-
+        }
         else
-
-            roomFree(holder);
+        {
+            roomFree(holder,position);
+        }
     }
 
     private void roomTaken(RoomViewholder holder, int position){
 
-        holder.lectureTitle.setText(rooms.getRoom(position).getLectures().get(0).getTitle());
+        holder.lectureTitle.setText(rooms.getRoom(position).getFirstLecture( ).getTitle());
 
-        holder.roomInformation.setText(context.getResources().getString(R.string.free,"hallo"));
+        holder.roomInformation.setText(context.getResources()
+                .getString(R.string.taken,TimeManager.getTimeTillEndOfLecture(rooms.getRoom(position).getFirstLecture( ))));
 
         holder.circleImageView.setImageResource(ic_closed);
     }
 
-    private void roomFree(RoomViewholder holder){
+    private void roomFree(RoomViewholder holder, int position){
 
         holder.lectureTitle.setText("");
 
-        holder.roomInformation.setText(context.getResources().getString(R.string.taken,"hallo"));
+        holder.roomInformation.setText(context.getResources().getString(R.string.free,TimeManager.getTimeTillLectureOrMidnight(rooms.getRoom(position).getFirstLecture( ))));
 
         holder.circleImageView.setImageResource(ic_room);
     }

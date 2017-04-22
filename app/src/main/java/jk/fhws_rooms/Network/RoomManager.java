@@ -5,7 +5,8 @@ import java.util.List;
 import jk.fhws_rooms.Adapter.RoomAdapter;
 import jk.fhws_rooms.Helper.TimeManager;
 import jk.fhws_rooms.Model.DataManager;
-import jk.fhws_rooms.Model.Lectures;
+import jk.fhws_rooms.Model.FullLecture;
+import jk.fhws_rooms.Model.Lecture;
 import jk.fhws_rooms.Model.Room;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,23 +85,48 @@ public class RoomManager {
         }
 
         private void getAllLecturesForRoom(final Room room, final int index) {
-            Call<List<Lectures>> call = supportApiAdapter
+            Call<List<Lecture>> call = supportApiAdapter
                     .getLecturesInTime(room.getLabel(), TimeManager.now(), TimeManager.nextDays( timeSlot ));
 
-            call.enqueue(new Callback<List<Lectures>>() {
+            call.enqueue(new Callback<List<Lecture>>() {
 
                 @Override
-                public void onResponse(Call<List<Lectures>> call, Response<List<Lectures>> response) {
+                public void onResponse(Call<List<Lecture>> call, Response<List<Lecture>> response) {
+                    if ( response.isSuccessful( ) ) {
 
-                    if (response.isSuccessful()) {
-                        room.setLectures(response.body());
-                        if (response.body().size() > 0)
-                            adapter.updateRoom(index);
+                        if ( !response.body().isEmpty( ) ){
+                            room.setLectures( response.body( ) );
+
+                            getFullLecture( room.getLectures().get(0) , index );
+                        }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<List<Lectures>> call, Throwable t) {
+                public void onFailure(Call<List<Lecture>> call, Throwable t) {
+                }
+            });
+        }
+
+        public void getFullLecture(final Lecture lecture, final int index){
+
+            Call<FullLecture> call = supportApiAdapter
+                    .getLecture(lecture.getYear(),lecture.getStudiengang(),lecture.getSemester(),
+                            lecture.getKursnummer(),lecture.getEvents().get(0).getStartTimeAsString());
+
+            call.enqueue(new Callback<FullLecture>( ) {
+                @Override
+                public void onResponse(Call<FullLecture> call, Response<FullLecture> response) {
+                    if ( response.isSuccessful( ) ){
+                        lecture.setFullLecture( response.body( ) );
+
+                        adapter.updateRoom( index );
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<FullLecture> call, Throwable t) {
+
                 }
             });
         }

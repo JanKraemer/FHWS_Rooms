@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Jan on 11.04.2017.
  */
 
-public class Lectures {
+public class Lecture {
 
     @SerializedName("number")
     private int kursnummer;
@@ -28,7 +28,9 @@ public class Lectures {
 
     private List<Event> events;
 
-    public Lectures( ) { }
+    private FullLecture fullLecture;
+
+    public Lecture( ) { }
 
     public int getKursnummer( ) { return kursnummer; }
 
@@ -57,4 +59,16 @@ public class Lectures {
     public void setTitle(String title) { this.title = title; }
 
     public void setYear(String year) { this.year = year; }
+
+    public FullLecture getFullLecture() {
+        return fullLecture;
+    }
+
+    public void setFullLecture(FullLecture fullLecture) {
+        this.fullLecture = fullLecture;
+    }
+
+    public boolean hasFullLecture( ) {
+        return fullLecture != null;
+    }
 }
