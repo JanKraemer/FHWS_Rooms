@@ -3,13 +3,11 @@ package jk.fhws_rooms.Activitiy;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,13 +40,20 @@ public class RoomsActivity extends AppCompatActivity {
         initRefreshLayout( );
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     private void initToolbar( ) {
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar);
 
         toolBar.setTitle(getString(R.string.toolbar_title));
-
-        toolBar.setTitleTextColor( ContextCompat.getColor(this, R.color.colorBlack));
 
         setSupportActionBar(toolBar);
     }
@@ -65,13 +70,12 @@ public class RoomsActivity extends AppCompatActivity {
         adapter =new RoomAdapter(getApplicationContext(), new IOnItemClickListener() {
             @Override
             public void OnClick(int position) {
-                Log.d("tag","Bild"+position);
-             //   Intent intent = new Intent(RoomsActivity.this, ItemDetailActivity.class);
-             //   startActivity(intent);
+                Intent intent = new Intent(RoomsActivity.this, LectureDetailView.class);
+                intent.putExtra(LectureDetailView.OBJECTID,String.valueOf(position));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
-
-        adapter.insertData( );
 
         recyclerView.setAdapter(adapter);
     }
@@ -82,9 +86,7 @@ public class RoomsActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.clear( );
-
-                adapter.insertData( );
+                adapter.refreshData( );
 
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -97,8 +99,10 @@ public class RoomsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_name) {
-            SettingsDialog.Builder(this).show();
-            adapter.insertData( );
+            SettingsDialog.Builder( this )
+                    .refreshAdapter( adapter )
+                    .withOldTimeSlot( adapter.getTimeSlot( ) )
+                    .show( );
             return true;
         }
 

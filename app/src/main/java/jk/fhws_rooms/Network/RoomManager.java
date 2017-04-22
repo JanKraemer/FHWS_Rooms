@@ -4,6 +4,7 @@ import java.util.List;
 
 import jk.fhws_rooms.Adapter.RoomAdapter;
 import jk.fhws_rooms.Helper.TimeManager;
+import jk.fhws_rooms.Model.DataManager;
 import jk.fhws_rooms.Model.Lectures;
 import jk.fhws_rooms.Model.Room;
 import retrofit2.Call;
@@ -28,13 +29,13 @@ public class RoomManager {
 
         private IFhwsApi supportApiAdapter;
         private RoomAdapter adapter;
-        private List<Room> rooms;
+        private DataManager dataManager;
         private int timeSlot;
 
         protected RoomManagerBuilder ( ) { }
 
 
-        public RoomManagerBuilder with( IFhwsApi supportApiAdapter ) {
+        public RoomManagerBuilder withNetworkInterface( IFhwsApi supportApiAdapter ) {
             this.supportApiAdapter = supportApiAdapter;
 
             return this;
@@ -44,6 +45,13 @@ public class RoomManager {
             this.timeSlot = timeSlot;
 
             return this;
+        }
+
+        public RoomManagerBuilder withDataManager( DataManager roomManager) {
+            this.dataManager = roomManager;
+
+            return this;
+
         }
 
         public void update(final RoomAdapter adapter) {
@@ -63,10 +71,9 @@ public class RoomManager {
                 public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
 
                     if (response.isSuccessful()) {
-                        rooms = response.body();
-                        adapter.updateData(rooms);
-                        for (int i = 0; i < rooms.size(); i++)
-                            getAllLecturesForRoom(rooms.get(i), i);
+                        adapter.updateData(response.body());
+                        for (int i = 0; i < dataManager.getAllRooms().size(); i++)
+                            getAllLecturesForRoom(dataManager.getRoom(i), i);
                     }
                 }
 

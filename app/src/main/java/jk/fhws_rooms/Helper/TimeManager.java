@@ -1,7 +1,10 @@
 package jk.fhws_rooms.Helper;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 
 /**
@@ -15,10 +18,14 @@ public class TimeManager {
         return System.currentTimeMillis();
     }
 
+    private static Calendar getInstance( ){
+        return Calendar.getInstance();
+    }
+
 
     public static long midnight(){
 
-        Calendar cal = new GregorianCalendar();
+        Calendar cal = getInstance();
 
         cal.add(Calendar.DAY_OF_MONTH,1);
 
@@ -33,7 +40,7 @@ public class TimeManager {
 
     public static long nextDays( int days ){
 
-        Calendar cal = new GregorianCalendar();
+        Calendar cal = getInstance();
 
         cal.add(Calendar.DAY_OF_MONTH,days);
 
@@ -45,6 +52,4 @@ public class TimeManager {
 
         return cal.getTimeInMillis();
     }
-
-
 }

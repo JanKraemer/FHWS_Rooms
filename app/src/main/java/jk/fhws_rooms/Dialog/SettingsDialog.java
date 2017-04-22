@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import jk.fhws_rooms.Activitiy.RoomsActivity;
+import jk.fhws_rooms.Adapter.RoomAdapter;
 import jk.fhws_rooms.R;
 
 /**
@@ -33,9 +34,23 @@ public class SettingsDialog {
         protected TextView title;
         protected Spinner spinner;
         protected int timeSlot;
+        protected int oldTimeSlot;
+        protected RoomAdapter adapter;
 
         protected SettingsDialogBuilder( Context context ){
             this.context = context;
+        }
+
+        public SettingsDialogBuilder refreshAdapter(RoomAdapter adapter){
+            this.adapter = adapter;
+
+            return this;
+        }
+
+        public SettingsDialogBuilder withOldTimeSlot( int oldTimeSlot ){
+            this.oldTimeSlot = oldTimeSlot;
+
+            return this;
         }
 
         public void show( ) {
@@ -69,10 +84,10 @@ public class SettingsDialog {
             agree.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putInt(RoomsActivity.TIMESLOT,timeSlot);
-                    editor.apply();
+                    if( oldTimeSlot != timeSlot ) {
+                        addNewTimeSlot( );
+                        adapter.refreshData( );
+                    }
                     dialog.dismiss();
                 }
             });
@@ -109,5 +124,14 @@ public class SettingsDialog {
 
         }
 
+        private void addNewTimeSlot ( ) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.putInt(RoomsActivity.TIMESLOT,timeSlot);
+
+            editor.apply();
+        }
     }
 }
