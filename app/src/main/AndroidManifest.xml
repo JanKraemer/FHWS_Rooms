@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activitiy.MainActivity"
+            android:launchMode="singleTask"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +26,10 @@
             android:label="@string/title_activity_rooms"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activitiy.LectureDetailView"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Activitiy.RoomsActivity" />
     </application>
 
 </manifest>
