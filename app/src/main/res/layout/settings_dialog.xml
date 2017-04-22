@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dialog_width"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/dialog_elevation"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:id="@+id/settings_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:text="Hallo"
+        android:paddingLeft="@dimen/dialog_padding_side"
+        android:paddingRight="@dimen/dialog_padding_side"
+        android:paddingBottom="@dimen/dialog_padding_title_bottom"
+        android:textStyle="bold"
+        android:textSize="@dimen/dialog_title_size" />
+
+    <TextView
+        android:id="@+id/settings_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tage"
+        android:textSize="@dimen/title_size"
+        android:textAlignment="center"
+        android:paddingLeft="@dimen/dialog_padding_side"
+        android:layout_toRightOf="@+id/checkbox_normal"
+        android:paddingRight="@dimen/text_padding_right"
+        android:paddingBottom="@dimen/dialog_padding_side"
+        android:layout_below="@+id/settings_title"/>
+
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/checkbox_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings_title"
+        android:paddingLeft="@dimen/dialog_padding_side"
+        android:layout_marginLeft="20dp"
+        android:paddingRight="@dimen/text_padding_right"
+        android:paddingBottom="@dimen/dialog_padding_side" />
+
+    <Button
+        android:id="@+id/dialog_settings_okay"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:text="AGREE"
+        android:layout_margin="@dimen/dialog_button_margin"
+        android:minWidth="@dimen/button_min_width"
+        android:layout_below="@+id/settings_day"
+        android:paddingLeft="@dimen/button_padding_side"
+        android:paddingRight="@dimen/button_padding_side"
+        android:layout_alignParentEnd="true"
+        android:elevation="@dimen/default_translationZ"
+        android:background="@drawable/ripple_round_corner" />
+
+    <Button
+        android:id="@+id/dialog_settings_cancel"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:text="CANCEL"
+        android:layout_marginTop="@dimen/dialog_button_margin"
+        android:layout_marginBottom="@dimen/dialog_button_margin"
+        android:minWidth="@dimen/button_min_width"
+        android:layout_below="@+id/settings_day"
+        android:layout_toLeftOf="@+id/dialog_settings_okay"
+        android:paddingLeft="@dimen/button_padding_side"
+        android:paddingRight="@dimen/button_padding_side"
+        android:elevation="@dimen/default_translationZ"
+        android:background="@drawable/ripple_round_corner" />
+
+</RelativeLayout>
