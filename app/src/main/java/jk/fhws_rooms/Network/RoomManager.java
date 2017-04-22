@@ -16,74 +16,87 @@ import retrofit2.Response;
 
 public class RoomManager {
 
-    public static RoomManager getRoomManager(){
+    public static RoomManagerBuilder getRoomManager(){
 
-        return new RoomManager();
+        return new RoomManagerBuilder();
 
     }
-
-    private IFhwsApi supportApiAdapter;
-    private RoomAdapter adapter;
-    private List<Room> rooms;
 
     private RoomManager( ){  }
 
-    public RoomManager with(IFhwsApi supportApiAdapter){
+    public static class RoomManagerBuilder {
 
-        this.supportApiAdapter = supportApiAdapter;
+        private IFhwsApi supportApiAdapter;
+        private RoomAdapter adapter;
+        private List<Room> rooms;
+        private int timeSlot;
 
-       return this;
-    }
+        protected RoomManagerBuilder ( ) { }
 
-    public void update(final RoomAdapter adapter){
 
-        this.adapter = adapter;
+        public RoomManagerBuilder with( IFhwsApi supportApiAdapter ) {
+            this.supportApiAdapter = supportApiAdapter;
 
-        getRoomsWithLectures();
+            return this;
+        }
 
-    }
+        public RoomManagerBuilder timeperiod( int timeSlot ){
+            this.timeSlot = timeSlot;
 
-    private void getRoomsWithLectures(){
-        Call<List<Room>> call =  SupportApiAdapter.getSupportApiAdapter().getAllRooms();
+            return this;
+        }
 
-        call.enqueue(new Callback<List<Room>>() {
+        public void update(final RoomAdapter adapter) {
 
-            @Override
-            public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
+            this.adapter = adapter;
 
-                if (response.isSuccessful()){
-                    rooms = response.body();
-                    adapter.updateData(rooms);
-                    for (int i = 0;i < rooms.size();i++)
-                        getAllLecturesForRoom(rooms.get(i), i);
+            getRoomsWithLectures();
+
+        }
+
+        private void getRoomsWithLectures() {
+            Call<List<Room>> call = supportApiAdapter.getAllRooms();
+
+            call.enqueue(new Callback<List<Room>>() {
+
+                @Override
+                public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
+
+                    if (response.isSuccessful()) {
+                        rooms = response.body();
+                        adapter.updateData(rooms);
+                        for (int i = 0; i < rooms.size(); i++)
+                            getAllLecturesForRoom(rooms.get(i), i);
+                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<List<Room>> call, Throwable t) {
-            }
-        });
-    }
 
-    private void getAllLecturesForRoom(final Room room, final int index){
-        Call<List<Lectures>> call =  SupportApiAdapter
-                .getSupportApiAdapter()
-                .getLecturesInTime(room.getLabel(), TimeManager.now(),TimeManager.midnight());
-
-        call.enqueue(new Callback<List<Lectures>>() {
-
-            @Override
-            public void onResponse(Call<List<Lectures>> call, Response<List<Lectures>> response) {
-
-                if (response.isSuccessful()){
-                    room.setLectures(response.body());
-                    if(response.body().size()> 0)
-                        adapter.updateRoom(index);
+                @Override
+                public void onFailure(Call<List<Room>> call, Throwable t) {
                 }
-            }
-            @Override
-            public void onFailure(Call<List<Lectures>> call, Throwable t) {
-            }
-        });
+            });
+        }
+
+        private void getAllLecturesForRoom(final Room room, final int index) {
+            Call<List<Lectures>> call = supportApiAdapter
+                    .getLecturesInTime(room.getLabel(), TimeManager.now(), TimeManager.nextDays( timeSlot ));
+
+            call.enqueue(new Callback<List<Lectures>>() {
+
+                @Override
+                public void onResponse(Call<List<Lectures>> call, Response<List<Lectures>> response) {
+
+                    if (response.isSuccessful()) {
+                        room.setLectures(response.body());
+                        if (response.body().size() > 0)
+                            adapter.updateRoom(index);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Lectures>> call, Throwable t) {
+                }
+            });
+        }
     }
 }
 

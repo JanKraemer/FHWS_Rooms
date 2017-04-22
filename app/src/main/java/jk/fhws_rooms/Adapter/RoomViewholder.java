@@ -21,7 +21,6 @@ import jk.fhws_rooms.R;
 public class RoomViewholder extends RecyclerView.ViewHolder {
 
     CircleImageView circleImageView;
-    RelativeLayout background;
     TextView roomTitle;
     TextView lectureTitle;
     TextView roomInformation;
@@ -40,8 +39,6 @@ public class RoomViewholder extends RecyclerView.ViewHolder {
         this.roomTitle = (TextView) itemView.findViewById(R.id.room_title);
 
         this.roomInformation = (TextView) itemView.findViewById(R.id.room_information);
-
-        this.background = (RelativeLayout) itemView.findViewById(R.id.card_background);
     }
 
     void setOnItemClickListener(final int position ){

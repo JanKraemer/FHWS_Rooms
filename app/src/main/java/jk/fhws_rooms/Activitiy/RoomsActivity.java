@@ -1,7 +1,9 @@
 package jk.fhws_rooms.Activitiy;
 
+
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,19 +12,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import jk.fhws_rooms.Adapter.IOnItemClickListener;
-import jk.fhws_rooms.Adapter.RecyclerItemClickListener;
 import jk.fhws_rooms.Adapter.RoomAdapter;
-import jk.fhws_rooms.Adapter.RoomViewholder;
-import jk.fhws_rooms.Network.RoomManager;
-import jk.fhws_rooms.Network.SupportApiAdapter;
+import jk.fhws_rooms.Dialog.SettingsDialog;
 import jk.fhws_rooms.R;
 
 public class RoomsActivity extends AppCompatActivity {
 
+    public static String TIMESLOT = "TIMESLOT";
+
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager layoutManager;
     private RoomAdapter adapter;
 
@@ -37,10 +38,7 @@ public class RoomsActivity extends AppCompatActivity {
 
         initRecyclerView( );
 
-        RoomManager
-                .getRoomManager( )
-                .with( SupportApiAdapter.getSupportApiAdapter( ) )
-                .update( ( RoomAdapter ) recyclerView.getAdapter( ) );
+        initRefreshLayout( );
     }
 
 
@@ -70,37 +68,25 @@ public class RoomsActivity extends AppCompatActivity {
             }
         });
 
+        adapter.insertData( );
+
         recyclerView.setAdapter(adapter);
+    }
 
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        // TODO Handle item click
-                        Log.d("Tag", "itemclick"+position);
-/*                       if (adapter.getSelectedItems().get(position, true)) {
+    private void initRefreshLayout( ) {
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh);
 
-                            adapter.selectItem(( RoomViewholder) recyclerView.getChildViewHolder(view));
-                        }
-                        else {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clear( );
 
-                           adapter.unselectItem(( RoomViewholder) recyclerView.getChildViewHolder(view));
-                        }*/
-                    }
+                adapter.insertData( );
 
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-         /*               if (adapter.getSelectedItems().get(position, false)) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
-                            adapter.selectItem(( RoomViewholder) recyclerView.getChildViewHolder(view));
-
-                        }
-                        else {
-
-                            adapter.unselectItem(( RoomViewholder) recyclerView.getChildViewHolder(view));
-                        }*/
-                    }
-                })
-        );
     }
 
     @Override
@@ -108,6 +94,8 @@ public class RoomsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_name) {
+            SettingsDialog.Builder(this).show();
+            adapter.insertData( );
             return true;
         }
 
@@ -115,9 +103,11 @@ public class RoomsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu( Menu menu ) {
         MenuInflater inflater = getMenuInflater();
+
         inflater.inflate(R.menu.room_menu, menu);
+
         return true;
     }
 

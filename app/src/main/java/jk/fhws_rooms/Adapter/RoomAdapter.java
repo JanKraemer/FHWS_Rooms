@@ -1,6 +1,8 @@
 package jk.fhws_rooms.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
@@ -12,7 +14,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import jk.fhws_rooms.Activitiy.RoomsActivity;
 import jk.fhws_rooms.Model.Room;
+import jk.fhws_rooms.Network.RoomManager;
+import jk.fhws_rooms.Network.SupportApiAdapter;
 import jk.fhws_rooms.R;
 
 import static jk.fhws_rooms.R.mipmap.ic_closed;
@@ -43,7 +48,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
     public void updateData(List<Room> data){
         DiffUtil.DiffResult result = DiffUtil.calculateDiff( new UpdateCallback(rooms,data));
+
         rooms = data;
+
         result.dispatchUpdatesTo(this);
     }
 
@@ -62,15 +69,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
     @Override
     public void onBindViewHolder(final RoomViewholder holder,final int position) {
+        if ( rooms.size() != 0 ) {
 
-        holder.background.setSelected(selectedItems.get(position, false));
+            holder.roomTitle.setText(rooms.get(position).getLabel());
 
-        holder.roomTitle.setText(rooms.get(position).getLabel());
+            setLectureTitleAndInformation(holder, position);
 
-        setLectureTitleAndInformation(holder, position);
-
-        holder.setOnItemClickListener(position);
-
+            holder.setOnItemClickListener(position);
+        }
     }
 
     @Override
@@ -108,21 +114,22 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
         holder.circleImageView.setImageResource(ic_room);
     }
 
-    public void selectItem(RoomViewholder holder) {
+    public void clear( ){
+        rooms.clear();
 
-        selectedItems.delete(holder.getAdapterPosition());
-
-        holder.background.setSelected(false);
+        notifyDataSetChanged();
     }
 
-    public void unselectItem(RoomViewholder holder) {
-
-        selectedItems.put(holder.getAdapterPosition(), true);
-
-        holder.background.setSelected(true);
+    public void insertData( ) {
+        RoomManager.getRoomManager()
+                .with( SupportApiAdapter.getSupportApiAdapter( ) )
+                .timeperiod( getTimeSlot( ) )
+                .update( this );
     }
 
-    public SparseBooleanArray getSelectedItems() {
-        return selectedItems;
+    private int getTimeSlot( ) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences( context );
+
+        return preferences.getInt( RoomsActivity.TIMESLOT , 1) ;
     }
 }

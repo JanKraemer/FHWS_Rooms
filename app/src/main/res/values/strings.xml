@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FHWS_Room</string>
     <string name="title_activity_rooms">Räume</string>
@@ -5,4 +6,10 @@
     <string name="taken">Frei in: %s </string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="toolbar_title">"Räume SHL"</string>
+    <string-array name="planets_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>
+

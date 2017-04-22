@@ -9,5 +9,16 @@
     <dimen name="subtitle_size">14sp</dimen>
     <dimen name="text_padding_bottom">20dp</dimen>
     <dimen name="text_padding_top">20dp</dimen>
-
+    <dimen name="dialog_padding_side">24dp</dimen>
+    <dimen name="dialog_button_margin">8dp</dimen>
+    <dimen name="dialog_title_size">20sp</dimen>
+    <dimen name="dialog_padding_title_bottom">20dp</dimen>
+    <dimen name="dialog_text_padding_bottom">24dp</dimen>
+    <dimen name="dialog_elevation">24dp</dimen>
+    <dimen name="button_height">36dp</dimen>
+    <dimen name="button_min_width">64dp</dimen>
+    <dimen name="button_padding_side">8dp</dimen>
+    <dimen name="corner_radius">2dp</dimen>
+    <dimen name="default_translationZ">0dp</dimen>
+    <dimen name="dialog_width">280dp</dimen>
 </resources>

@@ -1,5 +1,6 @@
 <ripple
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="@android:integer/config_mediumAnimTime"
     android:color="?android:attr/colorControlHighlight">
     <item
         android:id="@android:id/mask"

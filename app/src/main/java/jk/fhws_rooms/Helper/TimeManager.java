@@ -30,4 +30,21 @@ public class TimeManager {
 
         return cal.getTimeInMillis();
     }
+
+    public static long nextDays( int days ){
+
+        Calendar cal = new GregorianCalendar();
+
+        cal.add(Calendar.DAY_OF_MONTH,days);
+
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+
+        cal.set(Calendar.MINUTE, 0);
+
+        cal.set(Calendar.SECOND, 0);
+
+        return cal.getTimeInMillis();
+    }
+
+
 }
