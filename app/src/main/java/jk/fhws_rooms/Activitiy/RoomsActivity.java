@@ -1,6 +1,7 @@
 package jk.fhws_rooms.Activitiy;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -65,6 +66,8 @@ public class RoomsActivity extends AppCompatActivity {
             @Override
             public void OnClick(int position) {
                 Log.d("tag","Bild"+position);
+             //   Intent intent = new Intent(RoomsActivity.this, ItemDetailActivity.class);
+             //   startActivity(intent);
             }
         });
 

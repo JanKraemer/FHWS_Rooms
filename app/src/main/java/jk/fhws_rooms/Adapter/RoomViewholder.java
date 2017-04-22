@@ -20,6 +20,7 @@ import jk.fhws_rooms.R;
 
 public class RoomViewholder extends RecyclerView.ViewHolder {
 
+    CardView cardView;
     CircleImageView circleImageView;
     TextView roomTitle;
     TextView lectureTitle;
@@ -31,6 +32,8 @@ public class RoomViewholder extends RecyclerView.ViewHolder {
         super(itemView);
 
         this.listener = listener;
+
+        this.cardView = (CardView) itemView.findViewById(R.id.room_cardview);
 
         this.circleImageView = (CircleImageView) itemView.findViewById(R.id.room_image);
 
@@ -48,7 +51,7 @@ public class RoomViewholder extends RecyclerView.ViewHolder {
                 listener.OnClick(position);
             }
         };
-        circleImageView.setOnClickListener(onClickListener);
+        cardView.setOnClickListener(onClickListener);
     }
 
 }
