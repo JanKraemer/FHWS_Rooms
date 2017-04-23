@@ -39,8 +39,7 @@ public class LectureAdapter extends RecyclerView.Adapter<LectureViewholder> {
 
             holder.lectureTime.setText(getTimeStringForLecture(lectures.get(position).getFullLecture()));
 
-            holder.circleImageView.setImageResource(R.drawable.ic_grade);
-
+            holder.circleImageView.setImageResource(R.mipmap.ic_star);
         }
     }
 

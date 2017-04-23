@@ -122,9 +122,9 @@ public class RoomDetailView extends AppCompatActivity {
     private void freeRoom( Lecture lecture ) {
         vorlesung.setText(getString(R.string.keine_vorlesung));
 
-        professor.setText(getString(R.string.strich));
+        professor.setText(getString(R.string.kein_dozent));
 
-        studiengang.setText(getString(R.string.strich));
+        studiengang.setText(getString(R.string.kein_Studiengang));
 
         time.setText(getTimeString(TimeManager.now(), TimeManager.getTimeTillLectureOrMidnight(lecture)));
     }

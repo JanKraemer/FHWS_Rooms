@@ -15,9 +15,9 @@
     <string name="vorlesung_next">Nächsten Veranstaltungen</string>
     <string name="time_slot">Zeitraum: %1$s - %2$s </string>
     <string name="studiengang">%1$s %2$d .Semester</string>
-    <string name="nothing">frei</string>
     <string name="keine_vorlesung">Keine Veranstaltung</string>
-    <string name="strich">- frei -</string>
+    <string name="kein_dozent">- Keine Information -</string>
+    <string name="kein_Studiengang">- frei -</string>
     <string name="vorlesungszeit">%1$s, %2$s - %3$s</string>
 </resources>
 
