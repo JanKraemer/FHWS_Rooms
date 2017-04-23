@@ -1,5 +1,6 @@
 package jk.fhws_rooms.Helper;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.Locale;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
+import jk.fhws_rooms.Model.DataManager;
 import jk.fhws_rooms.Model.Lecture;
 
 
@@ -16,14 +18,14 @@ import jk.fhws_rooms.Model.Lecture;
 
 public class TimeManager {
 
-    public static long now(){
+    private static long REDUCE_CALC_HOUR = 3600000;
 
-        return System.currentTimeMillis();
+    public static long now(){
+        return getInstance().getTimeInMillis();
     }
 
     private static Calendar getInstance( ){
-        TimeZone zone = TimeZone.getTimeZone("CET");
-        return Calendar.getInstance(zone);
+        return Calendar.getInstance( );
     }
 
 
@@ -65,21 +67,17 @@ public class TimeManager {
     public static String getTimeTillEndOfLecture( Lecture lecture ){
         long time =  lecture.getFullLecture( ).getEnddate( ) - now( );
 
-        Date date = getDate( time );
-
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.GERMANY);
-
-        return format.format( date );
+        return timeAsString(time);
     }
 
-    public static String getTimeTillLectureOrMidnight( Lecture lecture ){
-        long time = getCalenderTillLectureOrMidnight(lecture) - now( );
+    public static String getStringFromTimeTillLectureOrMidnight(Lecture lecture ){
+        long time = getCalenderTillLectureOrMidnight(lecture) - now( ) - REDUCE_CALC_HOUR;
 
-        Date date = getDate( time );
+        return timeAsString(time);
+    }
 
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.GERMANY);
-
-        return format.format( date );
+    public static long getTimeTillLectureOrMidnight(Lecture lecture ) {
+        return getCalenderTillLectureOrMidnight(lecture);
     }
 
     private static long getCalenderTillLectureOrMidnight( Lecture lecture ){
@@ -100,11 +98,19 @@ public class TimeManager {
         return 0;
     }
 
-    private static Date getDate(long sec ){
+    private static Date getDate( long sec ){
 
         Date date = new Date( sec );
 
         return date;
     }
+
+    public static String timeAsString( long time ){
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.GERMANY);
+
+        return format.format( getDate( time ) );
+    }
+
+
 
 }

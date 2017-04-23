@@ -15,7 +15,9 @@ import jk.fhws_rooms.Helper.TimeManager;
 import jk.fhws_rooms.Model.DataManager;
 import jk.fhws_rooms.Model.Lecture;
 import jk.fhws_rooms.Model.Room;
-import jk.fhws_rooms.Network.RoomManager;
+import jk.fhws_rooms.Network.FirstLectureService;
+import jk.fhws_rooms.Network.LectureService;
+import jk.fhws_rooms.Network.RoomService;
 import jk.fhws_rooms.Network.SupportApiAdapter;
 import jk.fhws_rooms.R;
 
@@ -41,7 +43,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
         this.context = context;
         this.rooms = rooms;
         this.listener = listener;
-        insertData();
+        insertRooms();
     }
 
     public void updateData(List<Room> data){
@@ -108,7 +110,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
         holder.lectureTitle.setText("");
 
-        holder.roomInformation.setText(context.getResources().getString(R.string.free,TimeManager.getTimeTillLectureOrMidnight(rooms.getRoom(position).getFirstLecture( ))));
+        holder.roomInformation.setText(context.getResources().getString(R.string.free,TimeManager.getStringFromTimeTillLectureOrMidnight(rooms.getRoom(position).getFirstLecture( ))));
 
         holder.circleImageView.setImageResource(ic_room);
     }
@@ -119,12 +121,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
         notifyDataSetChanged();
     }
 
-    private void insertData( ) {
-        RoomManager.getRoomManager()
+    private void insertRooms( ) {
+
+        RoomService.getRoomManager( this )
                 .withNetworkInterface( SupportApiAdapter.getSupportApiAdapter( ) )
                 .withDataManager( DataManager.getInstance() )
-                .timeperiod( getTimeSlot( ) )
-                .update( this );
+                .update( );
     }
 
     public int getTimeSlot( ) {
@@ -136,7 +138,25 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
     public void refreshData( ){
         clear();
 
-        insertData();
-
+        insertRooms();
     }
+
+    public void getLecturesForRoom ( Room room ){
+
+        LectureService.getLectures( this )
+                .withNetworkInterface( SupportApiAdapter.getSupportApiAdapter( ) )
+                .addRoom( room )
+                .withPeroid( getTimeSlot( ) )
+                .start();
+    }
+
+
+    public void getFullLectureFromLecture(Lecture lecture, int index ){
+        FirstLectureService.getInstance( this )
+                .withNetworkInterface( SupportApiAdapter.getSupportApiAdapter() )
+                .onRoomIndex( index )
+                .updateLecture( lecture )
+                .start();
+    }
+
 }
