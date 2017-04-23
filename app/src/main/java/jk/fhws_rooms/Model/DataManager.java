@@ -3,6 +3,9 @@ package jk.fhws_rooms.Model;
 import java.util.LinkedList;
 import java.util.List;
 
+import jk.fhws_rooms.Network.SupportApiAdapter;
+import jk.fhws_rooms.Network.UpdateLectureService;
+
 /**
  * Created by Jan on 22.04.2017.
  */
