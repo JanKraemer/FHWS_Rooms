@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="jk.fhws_rooms.Activitiy.RoomDetailView"
     tools:showIn="@layout/activity_room_detail_view">
@@ -76,6 +76,18 @@
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/text_padding_left"
             android:paddingRight="@dimen/text_padding_right"/>
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/recyclerview_rooms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vorlesung_next"
+            android:scrollbars="vertical"
+            tools:context="jk.fhws_rooms.Activitiy.RoomDetailView"
+            tools:showIn="@layout/activity_room_detail_view" />
 
     </RelativeLayout>
 
