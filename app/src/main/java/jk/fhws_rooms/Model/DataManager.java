@@ -35,7 +35,7 @@ public class DataManager {
     }
 
     public void addRooms(List<Room> room) {
-        listOfRooms.addAll(room);
+        listOfRooms = room;
     }
 
     public Room getRoom(int position) {

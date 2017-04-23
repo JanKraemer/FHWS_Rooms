@@ -36,8 +36,8 @@ public class Event {
     public void setStartTime(long startTime) { this.startTime = startTime; }
 
     public String getStartTimeAsString( ){
-        String[] array = info.replaceAll("\\p{P}", " ").split(" ");
-        return array[3].replace("20","")+array[2]+array[1]+array[5]+array[6];
+       String[] array = this.url.split("/");
+       return array[array.length-1];
     }
 
 }

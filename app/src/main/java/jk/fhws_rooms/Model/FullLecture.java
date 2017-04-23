@@ -13,7 +13,7 @@ public class FullLecture {
     private long enddate;
     private String label;
     private String type;
-    private int eventid;
+    private String eventid;
     private String note;
     private String Group;
     private String room;
@@ -30,7 +30,7 @@ public class FullLecture {
         return label;
     }
 
-    public int getEventid() {
+    public String getEventid() {
         return eventid;
     }
 
@@ -74,7 +74,7 @@ public class FullLecture {
         this.enddate = enddate;
     }
 
-    public void setEventid(int eventid) {
+    public void setEventid(String eventid) {
         this.eventid = eventid;
     }
 
