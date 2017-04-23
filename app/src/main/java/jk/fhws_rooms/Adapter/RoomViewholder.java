@@ -29,13 +29,13 @@ public class RoomViewholder extends RecyclerView.ViewHolder {
 
         this.cardView = (CardView) itemView.findViewById(R.id.room_cardview);
 
-        this.circleImageView = (CircleImageView) itemView.findViewById(R.id.room_image);
+        this.circleImageView = (CircleImageView) itemView.findViewById(R.id.card_image);
 
-        this.lectureTitle = (TextView) itemView.findViewById(R.id.room_subtitle);
+        this.lectureTitle = (TextView) itemView.findViewById(R.id.card_subtitle);
 
-        this.roomTitle = (TextView) itemView.findViewById(R.id.room_title);
+        this.roomTitle = (TextView) itemView.findViewById(R.id.card_title);
 
-        this.roomInformation = (TextView) itemView.findViewById(R.id.room_information);
+        this.roomInformation = (TextView) itemView.findViewById(R.id.card_information);
     }
 
     void setOnItemClickListener(final int position ){

@@ -47,11 +47,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
     }
 
     public void updateData(List<Room> data){
-        DiffUtil.DiffResult result = DiffUtil.calculateDiff( new UpdateCallback(rooms.getAllRooms(),data));
-
         rooms.addRooms(data);
 
-        result.dispatchUpdatesTo(this);
+        notifyDataSetChanged();
     }
 
     public void updateRoom(int index)
@@ -62,7 +60,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
     @Override
     public RoomViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.room_layout,parent,false);
+                .inflate(R.layout.card_layout,parent,false);
 
         return new RoomViewholder(view, listener);
     }
