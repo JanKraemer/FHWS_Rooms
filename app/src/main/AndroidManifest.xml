@@ -27,7 +27,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activitiy.LectureDetailView"
+            android:name=".Activitiy.RoomDetailView"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".Activitiy.RoomsActivity" />
     </application>
