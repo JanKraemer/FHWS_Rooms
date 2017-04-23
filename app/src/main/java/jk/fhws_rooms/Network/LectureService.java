@@ -77,7 +77,7 @@ public class LectureService {
                         if ( !response.body().isEmpty( ) ){
                             room.setLectures( response.body( ) );
 
-                            adapter.getFullLectureFromLecture( room.getLectures().get(0) , dataManager.getAllRooms( ).indexOf( room ) );
+                            adapter.getFullLectureFromLecture( room , dataManager.getAllRooms( ).indexOf( room ) );
                         }
                     }
                 }

@@ -1,9 +1,12 @@
 package jk.fhws_rooms.Model;
 
 
+import java.util.Comparator;
 import java.util.List;
 
 import jk.fhws_rooms.Helper.TimeManager;
+
+import static java.util.Collections.sort;
 
 /**
  * Created by Jan on 11.04.2017.
@@ -47,5 +50,25 @@ public class Room {
 
     private boolean hasFullLecture ( ){
         return lectures.get(0).hasFullLecture( );
+    }
+
+    public boolean AreLecturesUpdated( ){
+        if( lectures != null){
+            for(Lecture lecture: lectures){
+                if( !lecture.hasFullLecture( ) ){
+                    return false;
+                }
+            }
+        }
+        return  true;
+    }
+
+    public void sortLectures( ){
+        sort(lectures, new Comparator<Lecture>() {
+            @Override
+            public int compare(Lecture o1, Lecture o2) {
+                return Long.compare(o1.getFullLecture( ).getStartdate( ),o2.getFullLecture( ).getStartdate( ));
+            }
+        });
     }
 }

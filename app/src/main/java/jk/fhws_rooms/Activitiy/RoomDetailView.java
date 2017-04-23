@@ -44,8 +44,6 @@ public class RoomDetailView extends AppCompatActivity {
 
         initRecyclerView( );
 
-        updateDate( );
-
         initTextView( );
 
         fillTextViewsWithLectureData ( room.getFirstLecture( ) );
@@ -54,28 +52,25 @@ public class RoomDetailView extends AppCompatActivity {
 
     private void initToolBarWithTitle( ) {
         Toolbar toolbar = ( Toolbar ) findViewById( R.id.toolbar );
+
         setSupportActionBar( toolbar );
+
         getSupportActionBar( ).setTitle( room.getLabel( ) );
+
         getSupportActionBar( ).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public boolean onOptionsItemSelected( MenuItem item ) {
         int id = item.getItemId( );
+
         if ( id == android.R.id.home ) {
+
             finish( );
+
             return true;
         }
         return super.onOptionsItemSelected( item );
-    }
-
-
-    public void updateDate( ){
-        UpdateLectureService.getInstance( ).
-                withNetworkInterface( SupportApiAdapter.getSupportApiAdapter( ) )
-                .withAdapter( adapter )
-                .updateLectures( room.getLectures( ) )
-                .start( );
     }
 
     private void initTextView( ){
