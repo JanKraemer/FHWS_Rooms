@@ -18,5 +18,6 @@
     <string name="nothing">frei</string>
     <string name="keine_vorlesung">Keine Veranstaltung</string>
     <string name="strich">- frei -</string>
+    <string name="vorlesungszeit">%1$s, %2$s - %3$s</string>
 </resources>
 

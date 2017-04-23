@@ -2,10 +2,13 @@ package jk.fhws_rooms.Activitiy;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import jk.fhws_rooms.Adapter.LectureAdapter;
 import jk.fhws_rooms.Helper.TimeManager;
 import jk.fhws_rooms.Model.DataManager;
 import jk.fhws_rooms.Model.Lecture;
@@ -19,6 +22,9 @@ public class RoomDetailView extends AppCompatActivity {
 
     public static String OBJECTID = "POSTION";
     private Room room;
+    private RecyclerView recyclerView;
+    private LectureAdapter adapter;
+    private LinearLayoutManager layoutManager;
     private TextView subtitle;
     private TextView vorlesung;
     private TextView professor;
@@ -35,6 +41,10 @@ public class RoomDetailView extends AppCompatActivity {
             room = DataManager.getInstance( ).getRoom( position );
         }
         initToolBarWithTitle( );
+
+        initRecyclerView( );
+
+        updateDate( );
 
         initTextView( );
 
@@ -60,10 +70,11 @@ public class RoomDetailView extends AppCompatActivity {
     }
 
 
-    public void test( ){
+    public void updateDate( ){
         UpdateLectureService.getInstance( ).
                 withNetworkInterface( SupportApiAdapter.getSupportApiAdapter( ) )
-                .updateRoom( room )
+                .withAdapter( adapter )
+                .updateLectures( room.getLectures( ) )
                 .start( );
     }
 
@@ -121,5 +132,19 @@ public class RoomDetailView extends AppCompatActivity {
         studiengang.setText(getString(R.string.strich));
 
         time.setText(getTimeString(TimeManager.now(), TimeManager.getTimeTillLectureOrMidnight(lecture)));
+    }
+
+    private void initRecyclerView( ){
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_rooms);
+
+        layoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setHasFixedSize(true);
+
+        adapter =new LectureAdapter(this, room.getLectures( ) );
+
+        recyclerView.setAdapter(adapter);
     }
 }
