@@ -111,6 +111,12 @@ public class TimeManager {
         return format.format( getDate( time ) );
     }
 
+    public static String getDayFromTime( long time ){
+        Calendar calendar = getInstance( );
 
+        calendar.setTimeInMillis( time );
+
+        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.GERMANY);
+    }
 
 }

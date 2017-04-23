@@ -1,7 +1,10 @@
 package jk.fhws_rooms.Network;
 
+import android.util.Log;
+
 import java.util.List;
 
+import jk.fhws_rooms.Adapter.LectureAdapter;
 import jk.fhws_rooms.Adapter.RoomAdapter;
 import jk.fhws_rooms.Model.DataManager;
 import jk.fhws_rooms.Model.FullLecture;
@@ -26,7 +29,8 @@ public class UpdateLectureService {
     public static class UpdateLectureServiceBuilder{
 
         protected IFhwsApi supportApiAdapter;
-        protected Room room;
+        protected List<Lecture> lectures;
+        protected LectureAdapter adapter;
 
         public UpdateLectureServiceBuilder( ){ }
 
@@ -36,18 +40,33 @@ public class UpdateLectureService {
             return this;
         }
 
-        public UpdateLectureServiceBuilder updateRoom( Room room ){
-            this.room = room;
+        public UpdateLectureServiceBuilder updateLectures(List<Lecture> lectures ){
+            this.lectures = lectures;
 
             return this;
         }
 
-        public void start( ){
-            for(Lecture lecture: room.getLectures())
-                updateLecture( lecture );
+        public UpdateLectureServiceBuilder withAdapter( LectureAdapter adapter ){
+            this.adapter = adapter;
+
+            return this;
         }
 
-        private void updateLecture(final Lecture lecture ){
+
+        public void start( ){
+            if( lectures != null){
+
+                for(int index = 0;index < lectures.size();index++ ){
+
+                    if(lectures.get(index).getFullLecture() == null ){
+
+                        updateLecture( lectures.get(index) , index);
+                    }
+                }
+            }
+        }
+
+        private void updateLecture(final Lecture lecture , final int index){
             Call<FullLecture> call = supportApiAdapter
                     .getLecture(lecture.getYear(),lecture.getStudiengang(),lecture.getSemester(),
                             lecture.getKursnummer(),lecture.getEvents().get(0).getStartTimeAsString());
@@ -57,6 +76,7 @@ public class UpdateLectureService {
                 public void onResponse(Call<FullLecture> call, Response<FullLecture> response) {
                     if ( response.isSuccessful( ) ){
                         lecture.setFullLecture( response.body( ) );
+                        adapter.updateData(lecture,index );
                     }
                 }
 
