@@ -9,7 +9,7 @@ import jk.fhws_rooms.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int DELAY_TIME = 1000;
+    private static int DELAY_TIME = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
