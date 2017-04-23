@@ -3,7 +3,6 @@ package jk.fhws_rooms.Adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +12,13 @@ import java.util.List;
 import jk.fhws_rooms.Activitiy.RoomsActivity;
 import jk.fhws_rooms.Helper.TimeManager;
 import jk.fhws_rooms.Model.DataManager;
+import jk.fhws_rooms.Model.FullLecture;
 import jk.fhws_rooms.Model.Lecture;
 import jk.fhws_rooms.Model.Room;
-import jk.fhws_rooms.Network.FirstLectureService;
 import jk.fhws_rooms.Network.LectureService;
 import jk.fhws_rooms.Network.RoomService;
 import jk.fhws_rooms.Network.SupportApiAdapter;
+import jk.fhws_rooms.Network.UpdateLectureService;
 import jk.fhws_rooms.R;
 
 import static jk.fhws_rooms.R.mipmap.ic_closed;
@@ -54,7 +54,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
     public void updateRoom(int index)
     {
-        notifyDataSetChanged();
+        notifyItemChanged(index);
     }
 
     @Override
@@ -149,11 +149,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
     }
 
 
-    public void getFullLectureFromLecture(Lecture lecture, int index ){
-        FirstLectureService.getInstance( this )
+    public void getFullLectureFromLecture(Room room, int index ){
+        UpdateLectureService.getInstance( this )
                 .withNetworkInterface( SupportApiAdapter.getSupportApiAdapter() )
-                .onRoomIndex( index )
-                .updateLecture( lecture )
+                .fromRoom( room )
+                .onIndex( index )
                 .start();
     }
 
