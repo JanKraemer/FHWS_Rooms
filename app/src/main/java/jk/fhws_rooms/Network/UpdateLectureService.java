@@ -1,5 +1,6 @@
 package jk.fhws_rooms.Network;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.List;
@@ -20,8 +21,8 @@ import retrofit2.Response;
 
 public class UpdateLectureService {
 
-    public static UpdateLectureServiceBuilder getInstance( ){
-        return new UpdateLectureServiceBuilder( );
+    public static UpdateLectureServiceBuilder getInstance( RoomAdapter adapter ){
+        return new UpdateLectureServiceBuilder( adapter );
     }
 
     private UpdateLectureService( ){ }
@@ -29,10 +30,12 @@ public class UpdateLectureService {
     public static class UpdateLectureServiceBuilder{
 
         protected IFhwsApi supportApiAdapter;
-        protected List<Lecture> lectures;
-        protected LectureAdapter adapter;
+        protected Room room;
+        protected RoomAdapter adapter;
+        protected int roomIndex;
+        protected Context context;
 
-        public UpdateLectureServiceBuilder( ){ }
+        public UpdateLectureServiceBuilder( RoomAdapter adapter){ this.adapter = adapter; }
 
         public UpdateLectureServiceBuilder withNetworkInterface( IFhwsApi supportApiAdapter ){
             this.supportApiAdapter = supportApiAdapter;
@@ -40,33 +43,29 @@ public class UpdateLectureService {
             return this;
         }
 
-        public UpdateLectureServiceBuilder updateLectures(List<Lecture> lectures ){
-            this.lectures = lectures;
+        public UpdateLectureServiceBuilder fromRoom (Room room ){
+            this.room = room;
 
             return this;
         }
 
-        public UpdateLectureServiceBuilder withAdapter( LectureAdapter adapter ){
-            this.adapter = adapter;
+        public UpdateLectureServiceBuilder onIndex( int roomIndex ){
+            this.roomIndex = roomIndex;
 
             return this;
         }
 
 
         public void start( ){
-            if( lectures != null){
+            if( room.getLectures( ) != null){
 
-                for(int index = 0;index < lectures.size();index++ ){
+                for( Lecture lecture : room.getLectures( ) )
+                    updateLecture( lecture );
 
-                    if(lectures.get(index).getFullLecture() == null ){
-
-                        updateLecture( lectures.get(index) , index);
-                    }
-                }
             }
         }
 
-        private void updateLecture(final Lecture lecture , final int index){
+        private void updateLecture(final Lecture lecture ){
             Call<FullLecture> call = supportApiAdapter
                     .getLecture(lecture.getYear(),lecture.getStudiengang(),lecture.getSemester(),
                             lecture.getKursnummer(),lecture.getEvents().get(0).getStartTimeAsString());
@@ -76,7 +75,11 @@ public class UpdateLectureService {
                 public void onResponse(Call<FullLecture> call, Response<FullLecture> response) {
                     if ( response.isSuccessful( ) ){
                         lecture.setFullLecture( response.body( ) );
-                        adapter.updateData(lecture,index );
+                        if( room.AreLecturesUpdated( ) ){
+                            room.sortLectures( );
+
+                            adapter.updateRoom( roomIndex );
+                        }
                     }
                 }
 

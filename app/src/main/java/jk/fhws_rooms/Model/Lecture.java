@@ -71,4 +71,5 @@ public class Lecture {
     public boolean hasFullLecture( ) {
         return fullLecture != null;
     }
+
 }
