@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import jk.fhws_rooms.Adapter.IOnItemClickListener;
 import jk.fhws_rooms.Adapter.RoomAdapter;
 import jk.fhws_rooms.Dialog.SettingsDialog;
+import jk.fhws_rooms.Model.DataManager;
 import jk.fhws_rooms.R;
 
 public class RoomsActivity extends AppCompatActivity {
@@ -67,13 +68,10 @@ public class RoomsActivity extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
 
-        adapter =new RoomAdapter(getApplicationContext(), new IOnItemClickListener() {
+        adapter =new RoomAdapter(this, new IOnItemClickListener() {
             @Override
             public void OnClick(int position) {
-                Intent intent = new Intent(RoomsActivity.this, LectureDetailView.class);
-                intent.putExtra(LectureDetailView.OBJECTID,String.valueOf(position));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                startRoomDetailActivity( position );
             }
         });
 
@@ -116,6 +114,16 @@ public class RoomsActivity extends AppCompatActivity {
         inflater.inflate(R.menu.room_menu, menu);
 
         return true;
+    }
+
+    private void startRoomDetailActivity( int position ){
+        Intent intent = new Intent(RoomsActivity.this, RoomDetailView.class);
+
+        intent.putExtra(RoomDetailView.OBJECTID,String.valueOf(position));
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent);
     }
 
 }

@@ -6,11 +6,78 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="jk.fhws_rooms.Activitiy.RoomDetailView"
-    tools:showIn="@layout/activity_lecture_detail_view">
+    tools:showIn="@layout/activity_room_detail_view">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_height="@dimen/subtitle_heigth"
+            android:textSize="@dimen/subtitle_size"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingRight="@dimen/text_padding_right"/>
+
+        <TextView
+            android:id="@+id/vorlesung_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/subtitle_heigth"
+            android:layout_below="@+id/subtitle"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingRight="@dimen/text_padding_right"/>
+
+        <TextView
+            android:id="@+id/vorlesung_professor"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/subtitle_heigth"
+            android:layout_below="@+id/vorlesung_title"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingRight="@dimen/text_padding_right"/>
+
+        <TextView
+            android:id="@+id/vorlesung_studiengang"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/subtitle_heigth"
+            android:layout_below="@+id/vorlesung_professor"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingRight="@dimen/text_padding_right"/>
+
+        <TextView
+            android:id="@+id/vorlesung_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/subtitle_heigth"
+            android:layout_below="@+id/vorlesung_studiengang"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingRight="@dimen/text_padding_right"/>
+
+        <TextView
+            android:id="@+id/vorlesung_next"
+            android:layout_width="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_height="@dimen/subtitle_heigth"
+            android:layout_below="@+id/vorlesung_time"
+            android:textSize="@dimen/subtitle_size"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/text_padding_left"
+            android:paddingRight="@dimen/text_padding_right"/>
+
+    </RelativeLayout>
+
 
 </android.support.v4.widget.NestedScrollView>
