@@ -1,8 +1,10 @@
 package jk.fhws_rooms.Network;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import jk.fhws_rooms.Adapter.RoomAdapter;
+import jk.fhws_rooms.Helper.TimeManager;
 import jk.fhws_rooms.Model.DataManager;
 import jk.fhws_rooms.Model.FullLecture;
 import jk.fhws_rooms.Model.Lecture;
@@ -38,15 +40,23 @@ public class RoomService {
             return this;
         }
 
-        public RoomServiceBuilder withDataManager(DataManager roomManager) {
-            this.dataManager = roomManager;
+        public RoomServiceBuilder withDataManager(DataManager dataManager) {
+            this.dataManager = dataManager;
 
             return this;
         }
 
         public void update( ) {
-            getRooms();
 
+            if ( dataManager.isLastCommitSet( ) && TimeManager.isTimeToday( dataManager.getLastCommit( ) ) )
+            {
+                dataManager.updateLecturesOfEachRoom( );
+
+                adapter.updateData( dataManager.getAllRooms( ) );
+            }
+            else {
+                getRooms();
+            }
         }
 
         private void getRooms( ) {
@@ -58,7 +68,10 @@ public class RoomService {
                 public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
 
                     if (response.isSuccessful()) {
-                        adapter.updateData(response.body());
+                        dataManager.addRooms(response.body());
+                        adapter.updateData(new LinkedList<>(response.body( )));
+
+                        dataManager.setLastCommit( TimeManager.now( ) );
                         for (int i = 0; i < dataManager.getAllRooms().size(); i++)
                             adapter.getLecturesForRoom(dataManager.getRoom(i));
                     }

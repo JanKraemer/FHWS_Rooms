@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.LinkedList;
 import java.util.List;
 
 import jk.fhws_rooms.Activitiy.RoomsActivity;
@@ -30,16 +32,16 @@ import static jk.fhws_rooms.R.mipmap.ic_room;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
-    private DataManager rooms;
+    private List<Room> rooms;
     private Context context;
     private IOnItemClickListener listener;
 
     public RoomAdapter(Context context, IOnItemClickListener listener){
-        this(context,DataManager.getInstance(),listener);
+        this(context,new LinkedList<Room>(),listener);
     }
 
 
-    public RoomAdapter(Context context, DataManager rooms, IOnItemClickListener listener){
+    public RoomAdapter(Context context, List<Room> rooms, IOnItemClickListener listener){
         this.context = context;
         this.rooms = rooms;
         this.listener = listener;
@@ -47,7 +49,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
     }
 
     public void updateData(List<Room> data){
-        rooms.addRooms(data);
+        rooms = new LinkedList<>(data);
 
         notifyDataSetChanged();
     }
@@ -67,9 +69,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
     @Override
     public void onBindViewHolder(final RoomViewholder holder,final int position) {
-        if ( rooms.getAllRooms( ).size( ) != 0 ) {
+        if ( rooms.size( ) != 0 ) {
 
-            holder.roomTitle.setText(rooms.getRoom(position).getLabel());
+            holder.roomTitle.setText(rooms.get(position).getLabel());
 
             setLectureTitleAndInformation(holder, position);
 
@@ -79,12 +81,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
     @Override
     public int getItemCount( ) {
-        return rooms.getAllRooms( ).size( );
+        return rooms.size( );
     }
 
     private void setLectureTitleAndInformation(RoomViewholder holder, int position){
 
-        if( rooms.getRoom( position ).hasCurrentLecture( ) )
+        if( rooms.get( position ).hasCurrentLecture( ) )
         {
             roomTaken(holder, position);
         }
@@ -96,10 +98,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
     private void roomTaken(RoomViewholder holder, int position){
 
-        holder.lectureTitle.setText(rooms.getRoom(position).getFirstLecture( ).getTitle());
+        holder.lectureTitle.setText(rooms.get(position).getFirstLecture( ).getTitle());
 
         holder.roomInformation.setText(context.getResources()
-                .getString(R.string.taken,TimeManager.getTimeTillEndOfLecture(rooms.getRoom(position).getFirstLecture( ))));
+                .getString(R.string.taken,TimeManager.getTimeTillEndOfLecture(rooms.get(position).getFirstLecture( ))));
 
         holder.circleImageView.setImageResource(ic_closed);
     }
@@ -108,13 +110,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
 
         holder.lectureTitle.setText("");
 
-        holder.roomInformation.setText(context.getResources().getString(R.string.free,TimeManager.getStringFromTimeTillLectureOrMidnight(rooms.getRoom(position).getFirstLecture( ))));
+        holder.roomInformation.setText(context.getResources().getString(R.string.free,TimeManager.getStringFromTimeTillLectureOrMidnight(rooms.get(position).getFirstLecture( ))));
 
         holder.circleImageView.setImageResource(ic_room);
     }
 
     private void clear( ){
-        rooms.getAllRooms().clear();
+        rooms.clear();
 
         notifyDataSetChanged();
     }
@@ -156,5 +158,4 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomViewholder>{
                 .onIndex( index )
                 .start();
     }
-
 }
