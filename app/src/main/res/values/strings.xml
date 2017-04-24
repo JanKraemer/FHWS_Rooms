@@ -19,5 +19,8 @@
     <string name="kein_dozent">- Keine Information -</string>
     <string name="kein_Studiengang">- frei -</string>
     <string name="vorlesungszeit">%1$s, %2$s - %3$s</string>
+    <string name="dialog_title">Einstellungen</string>
+    <string name="dialog_accept">Ändern</string>
+    <string name="dialog_cancel">Abbrechen</string>
 </resources>
 

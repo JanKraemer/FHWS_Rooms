@@ -70,6 +70,8 @@ public class SettingsDialog {
         private void setCancelButton( final Dialog dialog ){
             Button cancel = (Button) dialog.findViewById(R.id.dialog_settings_cancel);
 
+            cancel.setText(context.getString(R.string.dialog_cancel));
+
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,6 +82,8 @@ public class SettingsDialog {
 
         private void setAgreeButton( final Dialog dialog ) {
             Button agree = (Button) dialog.findViewById(R.id.dialog_settings_okay);
+
+            agree.setText(context.getString(R.string.dialog_accept));
 
             agree.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -97,6 +101,8 @@ public class SettingsDialog {
             dialog.setContentView(R.layout.settings_dialog);
 
             title = (TextView)dialog.findViewById(R.id.settings_title);
+
+            title.setText(context.getString(R.string.dialog_title));
 
             spinner = (Spinner) dialog.findViewById(R.id.checkbox_normal);
         }
