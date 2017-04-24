@@ -25,10 +25,19 @@ public class DataManager {
 
     private List<Room> listOfRooms;
 
+    private long lastCommit;
+
     private DataManager( ) {
         listOfRooms = new LinkedList<>();
     }
 
+    public long getLastCommit() {
+        return lastCommit;
+    }
+
+    public void setLastCommit(long lastCommit) {
+        this.lastCommit = lastCommit;
+    }
 
     public List<Room> getAllRooms( ) {
         return listOfRooms;
@@ -50,5 +59,14 @@ public class DataManager {
         }
 
         return null;
+    }
+
+    public boolean isLastCommitSet( ){
+        return lastCommit != 0;
+    }
+
+    public void updateLecturesOfEachRoom( ){
+        for ( Room current :listOfRooms )
+            current.deleteExpiredLectures( );
     }
 }
