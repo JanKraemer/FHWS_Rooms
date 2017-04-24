@@ -76,7 +76,7 @@ public class UpdateLectureService {
                     if ( response.isSuccessful( ) ){
                         lecture.setFullLecture( response.body( ) );
                         if( room.AreLecturesUpdated( ) ){
-                            room.sortLectures( );
+                            room.deleteExpiredLectures( );
 
                             adapter.updateRoom( roomIndex );
                         }
