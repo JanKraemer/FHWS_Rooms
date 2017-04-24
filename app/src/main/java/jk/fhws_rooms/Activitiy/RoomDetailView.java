@@ -138,7 +138,7 @@ public class RoomDetailView extends AppCompatActivity {
 
         recyclerView.setHasFixedSize(true);
 
-        adapter =new LectureAdapter(this, room.getLectures( ) );
+        adapter =new LectureAdapter(this, room.getFutureLectures( ) );
 
         recyclerView.setAdapter(adapter);
     }
