@@ -65,7 +65,7 @@ public class TimeManager {
     }
 
     public static String getTimeTillEndOfLecture( Lecture lecture ){
-        long time =  lecture.getFullLecture( ).getEnddate( ) - now( );
+        long time =  lecture.getFullLecture( ).getEnddate( ) - now( ) - REDUCE_CALC_HOUR;
 
         return timeAsString(time);
     }
@@ -117,6 +117,27 @@ public class TimeManager {
         calendar.setTimeInMillis( time );
 
         return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.GERMANY);
+    }
+
+    public static long today( ){
+
+        Calendar cal = getInstance();
+
+        cal.set(Calendar.HOUR_OF_DAY, 8);
+
+        cal.set(Calendar.MINUTE, 0);
+
+        cal.set(Calendar.SECOND, 0);
+
+        return cal.getTimeInMillis();
+    }
+
+    public static boolean isTimeToday( long time ){
+        return time <= midnight();
+    }
+
+    public static boolean isTimeNotExpired( long time ){
+        return  now( ) < time;
     }
 
 }
