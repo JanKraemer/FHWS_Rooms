@@ -4,6 +4,7 @@ package jk.fhws_rooms.Model;
 import java.util.Comparator;
 import java.util.List;
 
+import jk.fhws_rooms.Helper.LectureHelper;
 import jk.fhws_rooms.Helper.TimeManager;
 
 import static java.util.Collections.sort;
@@ -70,5 +71,17 @@ public class Room {
                 return Long.compare(o1.getFullLecture( ).getStartdate( ),o2.getFullLecture( ).getStartdate( ));
             }
         });
+    }
+
+    public void deleteExpiredLectures( ){
+        if( hasLectures( ) ){
+            setLectures( LectureHelper.removeExpiredLectures( lectures ) );
+
+            sortLectures( );
+        }
+    }
+
+    public List<Lecture> getFutureLectures( ){
+        return LectureHelper.getNotActualRunningLectures( lectures );
     }
 }

@@ -66,7 +66,7 @@ public class LectureService {
 
         private void getAllLecturesForRoom() {
             Call<List<Lecture>> call = supportApiAdapter
-                    .getLecturesInTime(room.getLabel(), TimeManager.now(), TimeManager.nextDays( timeSlot ));
+                    .getLecturesInTime(room.getLabel(), TimeManager.today( ), TimeManager.nextDays( timeSlot ));
 
             call.enqueue(new Callback<List<Lecture>>() {
 
