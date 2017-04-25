@@ -1,4 +1,4 @@
-package jk.fhws_rooms.Adapter;
+package jk.fhws_rooms.adapters;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,18 +8,14 @@ import android.widget.TextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import jk.fhws_rooms.R;
 
-/**
- * Created by Jan on 23.04.2017.
- */
-
-public class LectureViewholder  extends RecyclerView.ViewHolder{
+public class LectureViewholder extends RecyclerView.ViewHolder {
 
     CardView cardView;
     CircleImageView circleImageView;
     TextView lectureTitle;
     TextView lectureTime;
 
-    public LectureViewholder(View itemView ) {
+    public LectureViewholder(View itemView) {
         super(itemView);
 
         this.cardView = (CardView) itemView.findViewById(R.id.room_cardview);

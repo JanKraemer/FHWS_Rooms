@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activitiy.MainActivity"
+            android:name=".activities.MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -22,14 +22,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activitiy.RoomsActivity"
+            android:name=".activities.RoomsActivity"
             android:label="@string/title_activity_rooms"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activitiy.RoomDetailView"
+            android:name=".activities.RoomDetailView"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".Activitiy.RoomsActivity" />
+            android:parentActivityName=".activities.RoomsActivity" />
     </application>
 
 </manifest>

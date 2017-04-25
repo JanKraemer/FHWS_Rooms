@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="jk.fhws_rooms.Activitiy.RoomDetailView"
+    tools:context="jk.fhws_rooms.activities.RoomDetailView"
     tools:showIn="@layout/activity_room_detail_view">
 
     <RelativeLayout
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/vorlesung_next"
             android:scrollbars="vertical"
-            tools:context="jk.fhws_rooms.Activitiy.RoomDetailView"
+            tools:context="jk.fhws_rooms.activities.RoomDetailView"
             tools:showIn="@layout/activity_room_detail_view" />
 
     </RelativeLayout>

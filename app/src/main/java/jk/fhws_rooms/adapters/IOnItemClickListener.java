@@ -1,8 +1,4 @@
-package jk.fhws_rooms.Adapter;
-
-/**
- * Created by Jan on 11.04.2017.
- */
+package jk.fhws_rooms.adapters;
 
 public interface IOnItemClickListener {
     void OnClick(int position);

@@ -1,10 +1,6 @@
-package jk.fhws_rooms.Model;
+package jk.fhws_rooms.data;
 
 import java.util.List;
-
-/**
- * Created by Jan on 22.04.2017.
- */
 
 public class FullLecture {
 
@@ -20,7 +16,8 @@ public class FullLecture {
     private Module module;
     private List<SimpleLecturer> lecturers;
 
-    public FullLecture( ){ }
+    public FullLecture() {
+    }
 
     public void setLabel(String label) {
         this.label = label;

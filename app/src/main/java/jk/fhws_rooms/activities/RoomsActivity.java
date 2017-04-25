@@ -1,4 +1,4 @@
-package jk.fhws_rooms.Activitiy;
+package jk.fhws_rooms.activities;
 
 
 import android.content.Intent;
@@ -13,10 +13,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import jk.fhws_rooms.Adapter.IOnItemClickListener;
-import jk.fhws_rooms.Adapter.RoomAdapter;
-import jk.fhws_rooms.Dialog.SettingsDialog;
-import jk.fhws_rooms.Model.DataManager;
+import jk.fhws_rooms.adapters.IOnItemClickListener;
+import jk.fhws_rooms.adapters.RoomAdapter;
+import jk.fhws_rooms.dialog.SettingsDialog;
 import jk.fhws_rooms.R;
 
 public class RoomsActivity extends AppCompatActivity {
@@ -35,11 +34,11 @@ public class RoomsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_rooms);
 
-        initToolbar( );
+        initToolbar();
 
-        initRecyclerView( );
+        initRecyclerView();
 
-        initRefreshLayout( );
+        initRefreshLayout();
     }
 
     @Override
@@ -52,7 +51,7 @@ public class RoomsActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private void initToolbar( ) {
+    private void initToolbar() {
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar);
 
         toolBar.setTitle(getString(R.string.toolbar_title));
@@ -60,7 +59,7 @@ public class RoomsActivity extends AppCompatActivity {
         setSupportActionBar(toolBar);
     }
 
-    private void initRecyclerView( ){
+    private void initRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_rooms);
 
         layoutManager = new LinearLayoutManager(this);
@@ -71,23 +70,23 @@ public class RoomsActivity extends AppCompatActivity {
 
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        adapter =new RoomAdapter(this, new IOnItemClickListener() {
+        adapter = new RoomAdapter(this, new IOnItemClickListener() {
             @Override
             public void OnClick(int position) {
-                startRoomDetailActivity( position );
+                startRoomDetailActivity(position);
             }
         });
 
         recyclerView.setAdapter(adapter);
     }
 
-    private void initRefreshLayout( ) {
+    private void initRefreshLayout() {
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                adapter.refreshData( );
+                adapter.refreshData();
 
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -100,10 +99,10 @@ public class RoomsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_name) {
-            SettingsDialog.Builder( this )
-                    .refreshAdapter( adapter )
-                    .withOldTimeSlot( adapter.getTimeSlot( ) )
-                    .show( );
+            SettingsDialog.Builder(this)
+                    .refreshAdapter(adapter)
+                    .withOldTimeSlot(adapter.getTimeSlot())
+                    .show();
             return true;
         }
 
@@ -111,7 +110,7 @@ public class RoomsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu( Menu menu ) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
 
         inflater.inflate(R.menu.room_menu, menu);
@@ -119,10 +118,10 @@ public class RoomsActivity extends AppCompatActivity {
         return true;
     }
 
-    private void startRoomDetailActivity( int position ){
+    private void startRoomDetailActivity(int position) {
         Intent intent = new Intent(RoomsActivity.this, RoomDetailView.class);
 
-        intent.putExtra(RoomDetailView.OBJECTID,String.valueOf(position));
+        intent.putExtra(RoomDetailView.OBJECTID, String.valueOf(position));
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

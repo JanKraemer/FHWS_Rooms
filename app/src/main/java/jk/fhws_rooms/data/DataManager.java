@@ -1,23 +1,17 @@
-package jk.fhws_rooms.Model;
+package jk.fhws_rooms.data;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import jk.fhws_rooms.Network.SupportApiAdapter;
-import jk.fhws_rooms.Network.UpdateLectureService;
-
-/**
- * Created by Jan on 22.04.2017.
- */
 
 public class DataManager {
 
     private static DataManager instance;
 
 
-    public static DataManager getInstance( ) {
-        if (instance == null ) {
-            instance = new DataManager( );
+    public static DataManager getInstance() {
+        if (instance == null) {
+            instance = new DataManager();
         }
 
         return instance;
@@ -27,7 +21,7 @@ public class DataManager {
 
     private long lastCommit;
 
-    private DataManager( ) {
+    private DataManager() {
         listOfRooms = new LinkedList<>();
     }
 
@@ -39,7 +33,7 @@ public class DataManager {
         this.lastCommit = lastCommit;
     }
 
-    public List<Room> getAllRooms( ) {
+    public List<Room> getAllRooms() {
         return listOfRooms;
     }
 
@@ -51,7 +45,7 @@ public class DataManager {
         return listOfRooms.get(position);
     }
 
-    public Room getRoomByLabel (String roomName) {
+    public Room getRoomByLabel(String roomName) {
         for (Room room : listOfRooms) {
             if (room.getLabel().equals(roomName)) {
                 return room;
@@ -61,12 +55,12 @@ public class DataManager {
         return null;
     }
 
-    public boolean isLastCommitSet( ){
+    public boolean isLastCommitSet() {
         return lastCommit != 0;
     }
 
-    public void updateLecturesOfEachRoom( ){
-        for ( Room current :listOfRooms )
-            current.deleteExpiredLectures( );
+    public void updateLecturesOfEachRoom() {
+        for (Room current : listOfRooms)
+            current.deleteExpiredLectures();
     }
 }

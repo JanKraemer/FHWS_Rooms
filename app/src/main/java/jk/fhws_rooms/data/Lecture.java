@@ -1,12 +1,9 @@
-package jk.fhws_rooms.Model;
+package jk.fhws_rooms.data;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by Jan on 11.04.2017.
- */
 
 public class Lecture {
 

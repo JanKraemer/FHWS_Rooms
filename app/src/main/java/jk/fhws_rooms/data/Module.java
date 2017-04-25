@@ -1,15 +1,12 @@
-package jk.fhws_rooms.Model;
-
-/**
- * Created by Jan on 22.04.2017.
- */
+package jk.fhws_rooms.data;
 
 public class Module {
 
     private String label;
     private String url;
 
-    public Module( ){ }
+    public Module() {
+    }
 
     public String getLabel() {
         return label;

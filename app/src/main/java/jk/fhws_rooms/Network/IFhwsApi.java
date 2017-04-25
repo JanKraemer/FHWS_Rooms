@@ -2,17 +2,13 @@ package jk.fhws_rooms.Network;
 
 import java.util.List;
 
-import jk.fhws_rooms.Model.FullLecture;
-import jk.fhws_rooms.Model.Lecture;
-import jk.fhws_rooms.Model.Room;
+import jk.fhws_rooms.data.FullLecture;
+import jk.fhws_rooms.data.Lecture;
+import jk.fhws_rooms.data.Room;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-
-/**
- * Created by Jan on 11.04.2017.
- */
 
 public interface IFhwsApi {
 
@@ -28,5 +24,5 @@ public interface IFhwsApi {
 
     @GET("lectures/{year}/{studiengang}/{semester}/{kursnummer}/{date}")
     Call<FullLecture> getLecture(@Path("year") String year, @Path("studiengang") String studiengang,
-                                 @Path("semester") int semester, @Path("kursnummer") int kursnummer, @Path("date") String date );
+                                 @Path("semester") int semester, @Path("kursnummer") int kursnummer, @Path("date") String date);
 }

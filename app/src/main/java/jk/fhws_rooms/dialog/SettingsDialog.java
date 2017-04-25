@@ -1,4 +1,4 @@
-package jk.fhws_rooms.Dialog;
+package jk.fhws_rooms.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,22 +11,19 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import jk.fhws_rooms.Activitiy.RoomsActivity;
-import jk.fhws_rooms.Adapter.RoomAdapter;
+import jk.fhws_rooms.activities.RoomsActivity;
+import jk.fhws_rooms.adapters.RoomAdapter;
 import jk.fhws_rooms.R;
-
-/**
- * Created by Jan on 22.04.2017.
- */
 
 public class SettingsDialog {
 
-    public static SettingsDialogBuilder Builder( Context context ) {
+    public static SettingsDialogBuilder Builder(Context context) {
 
         return new SettingsDialogBuilder(context);
     }
 
-    private SettingsDialog( ) { }
+    private SettingsDialog() {
+    }
 
     public static class SettingsDialogBuilder {
 
@@ -37,37 +34,37 @@ public class SettingsDialog {
         protected int oldTimeSlot;
         protected RoomAdapter adapter;
 
-        protected SettingsDialogBuilder( Context context ){
+        protected SettingsDialogBuilder(Context context) {
             this.context = context;
         }
 
-        public SettingsDialogBuilder refreshAdapter(RoomAdapter adapter){
+        public SettingsDialogBuilder refreshAdapter(RoomAdapter adapter) {
             this.adapter = adapter;
 
             return this;
         }
 
-        public SettingsDialogBuilder withOldTimeSlot( int oldTimeSlot ){
+        public SettingsDialogBuilder withOldTimeSlot(int oldTimeSlot) {
             this.oldTimeSlot = oldTimeSlot;
 
             return this;
         }
 
-        public void show( ) {
+        public void show() {
             final Dialog dialog = new Dialog(context);
 
-            initDialogContent( dialog );
+            initDialogContent(dialog);
 
-            setSpinner( );
+            setSpinner();
 
-            setCancelButton( dialog );
+            setCancelButton(dialog);
 
-            setAgreeButton( dialog );
+            setAgreeButton(dialog);
 
-            dialog.show( );
+            dialog.show();
         }
 
-        private void setCancelButton( final Dialog dialog ){
+        private void setCancelButton(final Dialog dialog) {
             Button cancel = (Button) dialog.findViewById(R.id.dialog_settings_cancel);
 
             cancel.setText(context.getString(R.string.dialog_cancel));
@@ -80,7 +77,7 @@ public class SettingsDialog {
             });
         }
 
-        private void setAgreeButton( final Dialog dialog ) {
+        private void setAgreeButton(final Dialog dialog) {
             Button agree = (Button) dialog.findViewById(R.id.dialog_settings_okay);
 
             agree.setText(context.getString(R.string.dialog_accept));
@@ -88,28 +85,28 @@ public class SettingsDialog {
             agree.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if( oldTimeSlot != timeSlot ) {
-                        addNewTimeSlot( );
-                        adapter.refreshData( );
+                    if (oldTimeSlot != timeSlot) {
+                        addNewTimeSlot();
+                        adapter.refreshData();
                     }
                     dialog.dismiss();
                 }
             });
         }
 
-        private void initDialogContent( final Dialog dialog ){
+        private void initDialogContent(final Dialog dialog) {
             dialog.setContentView(R.layout.settings_dialog);
 
-            title = (TextView)dialog.findViewById(R.id.settings_title);
+            title = (TextView) dialog.findViewById(R.id.settings_title);
 
             title.setText(context.getString(R.string.dialog_title));
 
             spinner = (Spinner) dialog.findViewById(R.id.checkbox_normal);
         }
 
-        private void setSpinner ( ) {
+        private void setSpinner() {
 
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource( context,
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                     R.array.planets_array, android.R.layout.simple_spinner_item);
 
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -130,12 +127,12 @@ public class SettingsDialog {
 
         }
 
-        private void addNewTimeSlot ( ) {
+        private void addNewTimeSlot() {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
             SharedPreferences.Editor editor = preferences.edit();
 
-            editor.putInt(RoomsActivity.TIMESLOT,timeSlot);
+            editor.putInt(RoomsActivity.TIMESLOT, timeSlot);
 
             editor.apply();
         }

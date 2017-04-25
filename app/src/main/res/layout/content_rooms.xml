@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
-        tools:context="jk.fhws_rooms.Activitiy.RoomsActivity"
+        tools:context="jk.fhws_rooms.activities.RoomsActivity"
         tools:showIn="@layout/activity_rooms" />
 
 </android.support.v4.widget.SwipeRefreshLayout>
