@@ -51,7 +51,7 @@ public class Room {
     }
 
     public Lecture getFirstLecture() {
-        return lectures == null ? null : lectures.get(0);
+        return lectures == null || lectures.size() == 0 ? null : lectures.get(0);
     }
 
     private boolean hasLectures() {
